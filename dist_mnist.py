@@ -34,6 +34,12 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 FLAGS = None
 
+cluster = {'ps': ['localhost:2222'],
+           'worker': ['localhost:2223', 'localhost:2224']}
+os.environ['TF_CONFIG'] = json.dumps(
+    {'cluster': cluster,
+     'task': {'type': 'worker', 'index': 1}})
+
 def train():
   tf_config_json = os.environ.get("TF_CONFIG", "{}")
   tf_config = json.loads(tf_config_json)
