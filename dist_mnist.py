@@ -34,11 +34,12 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 FLAGS = None
 
-cluster = {'ps': ['localhost:2222'],
-           'worker': ['localhost:2223', 'localhost:2224']}
+cluster = {"master":["localhost:2222"],
+	   'ps': ['localhost:2223'],
+           'worker': ['localhost:2224', 'localhost:2225']}
 os.environ['TF_CONFIG'] = json.dumps(
     {'cluster': cluster,
-     'task': {'type': 'worker', 'index': 1}})
+     'task': {'type': 'worker', 'index': 0}})
 
 def train():
   tf_config_json = os.environ.get("TF_CONFIG", "{}")
@@ -257,13 +258,14 @@ if __name__ == '__main__':
   parser.add_argument(
       '--data_dir',
       type=str,
-      default='/var/tf_dist_mnist/',
+      default=os.path.join(os.getenv('TEST_TMPDIR', '/tmp'),
+                           'training'),
       help='Directory for storing input data')
   parser.add_argument(
       '--logdir',
       type=str,
       default=os.path.join(os.getenv('TEST_TMPDIR', '/tmp'),
-                           'kubeflow'),
+                           'tf_model'),
       help='Summaries log directory')
   FLAGS, unparsed = parser.parse_known_args()
   tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
