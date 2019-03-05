@@ -14,5 +14,10 @@
 
 FROM tensorflow/tensorflow:1.5.0
 
+RUN mkdir /var/logs
+RUN mkdir /var/logs/train
+RUN mkdir /var/logs/test
+RUN mkdir /var/serving_dir
+RUN pip install tensorflow==1.5.0
 ADD . /var/tf_dist_mnist
-ENTRYPOINT ["python", "/var/tf_dist_mnist/dist_mnist.py"]
+ENTRYPOINT ["python", "/var/tf_dist_mnist/mnist.py"]
