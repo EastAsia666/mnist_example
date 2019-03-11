@@ -154,6 +154,7 @@ def train():
       if i % 100 == 0:
         print('Save checkpoint at step %s: %s' % (i, acc))
         saver.save(sess, FLAGS.log_dir + '/model.ckpt', global_step=i)
+        print('Saved checkpoint at step %s: %s' % (i, acc))
     else:  # Record train set summaries, and train
       if i % 100 == 99:  # Record execution stats
         run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
@@ -182,7 +183,7 @@ if __name__ == '__main__':
   parser.add_argument('--fake_data', nargs='?', const=True, type=bool,
                       default=False,
                       help='If true, uses fake data for unit testing.')
-  parser.add_argument('--max_steps', type=int, default=200,
+  parser.add_argument('--max_steps', type=int, default=500,
                       help='Number of steps to run trainer.')
   parser.add_argument('--learning_rate', type=float, default=0.001,
                       help='Initial learning rate')
@@ -196,7 +197,9 @@ if __name__ == '__main__':
   parser.add_argument(
       '--log_dir',
       type=str,
-      default=os.getenv('LOG_TMPDIR', '/var/logs'),
+      default="/training_logs",
       help='Summaries log directory')
+  print("log_dir is {}".format(str(os.getenv('LOG_TMPDIR', '/var/logs'))))
+  print("data_dir is {}".format(str(os.getenv('TEST_TMPDIR', '/var/tf_dist_mnist'))))
   FLAGS, unparsed = parser.parse_known_args()
   tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
