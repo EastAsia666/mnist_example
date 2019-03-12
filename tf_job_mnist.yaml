@@ -8,7 +8,7 @@ spec:
     template:
       spec:
         containers:
-          - image: larryisdog/larry:5.0
+          - image: houyadong/tf_example_mnist:1.0
             name: tensorflow
             command: ["python", "/var/tf_dist_mnist/mnist.py"]
             args:
