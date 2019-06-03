@@ -192,12 +192,12 @@ if __name__ == '__main__':
   parser.add_argument(
       '--data_dir',
       type=str,
-      default=os.getenv('TEST_TMPDIR', '/var/tf_dist_mnist'),
+      default=os.getenv('TEST_TMPDIR', '/kubeflow/simple_mnist/data'),
       help='Directory for storing input data')
   parser.add_argument(
       '--log_dir',
       type=str,
-      default="/kubeflow/training_logs",
+      default="/kubeflow/simple_mnist/training_logs",
       help='Summaries log directory')
   print("log_dir is {}".format(str(os.getenv('LOG_TMPDIR', '/var/logs'))))
   print("data_dir is {}".format(str(os.getenv('TEST_TMPDIR', '/var/tf_dist_mnist'))))
